@@ -18,11 +18,15 @@ class m140830_172703_change_account_table_name extends Migration
 {
     public function up()
     {
+        $this->dropForeignKey('fk_user_account', '{{%account}}');
         $this->renameTable('{{%account}}', '{{%social_account}}');
+        $this->addForeignKey('fk_user_account', '{{%social_account}}', 'user_id', '{{%user}}', 'id', 'CASCADE', 'RESTRICT');
     }
 
     public function down()
     {
+        $this->dropForeignKey('fk_user_account', '{{%social_account}}');
         $this->renameTable('{{%social_account}}', '{{%account}}');
+        $this->addForeignKey('fk_user_account', '{{%account}}', 'user_id', '{{%user}}', 'id', 'CASCADE', 'RESTRICT');
     }
 }

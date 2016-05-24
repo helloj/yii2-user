@@ -34,6 +34,7 @@ class Migration extends \yii\db\Migration
             case 'mysql':
                 $this->tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
                 break;
+            case 'odbc':
             case 'pgsql':
                 $this->tableOptions = null;
                 break;

@@ -1,7 +1,7 @@
 {
-    "name": "dektrium/yii2-user",
+    "name": "helloj/yii2-user",
     "description": "Flexible user registration and authentication module for Yii2",
-    "keywords": ["yii2", "yii2-user", "user management", "dektrium"],
+    "keywords": ["yii2", "yii2-user", "user management", "dektrium", "dbmaker"],
     "type": "yii2-extension",
     "license": "MIT",
     "support": {
@@ -14,6 +14,10 @@
             "name": "Dmitry Erofeev",
             "email": "dmeroff@gmail.com",
             "homepage": "http://dmeroff.ru"
+        },
+        {
+            "name": "Jackie Yu",
+            "email": "helloj@gmail.com"
         }
     ],
     "minimum-stability": "dev",

@@ -21,15 +21,17 @@ class m141222_110026_update_ip_field extends Migration
 
         $transaction = Yii::$app->db->beginTransaction();
         try {
-            $this->alterColumn('{{%user}}', 'registration_ip', Schema::TYPE_STRING . '(45)');
+            $this->addColumn('{{%user}}', 'ip2', Schema::TYPE_STRING . '(45) AFTER registration_ip');
             foreach ($users as $user) {
                 if ($user['ip'] == null) {
                     continue;
                 }
                 Yii::$app->db->createCommand()->update('{{%user}}', [
-                    'registration_ip' => long2ip($user['ip']),
+                    'ip2' => long2ip($user['ip'])
                 ], 'id = ' . $user['id'])->execute();
             }
+            $this->dropColumn('{{%user}}', 'registration_ip');
+            $this->renameColumn('{{%user}}', 'ip2', 'registration_ip');
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollBack();
@@ -43,14 +45,16 @@ class m141222_110026_update_ip_field extends Migration
 
         $transaction = Yii::$app->db->beginTransaction();
         try {
+            $this->addColumn('{{%user}}', 'ip2', Schema::TYPE_BIGINT . ' AFTER registration_ip');
             foreach ($users as $user) {
                 if ($user['ip'] == null)
                     continue;
                 Yii::$app->db->createCommand()->update('{{%user}}', [
-                    'registration_ip' => ip2long($user['ip'])
+                    'ip2' => ip2long($user['ip'])
                 ], 'id = ' . $user['id'])->execute();
             }
-            $this->alterColumn('{{%user}}', 'registration_ip', Schema::TYPE_BIGINT);
+            $this->dropColumn('{{%user}}', 'registration_ip');
+            $this->renameColumn('{{%user}}', 'ip2', 'registration_ip');
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollBack();
